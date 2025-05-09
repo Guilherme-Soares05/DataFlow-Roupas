@@ -2,11 +2,15 @@
 <html>
 <head>
     <title>{{ produto }} - Loja de Roupas (Simulada)</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>{{ produto }}</h1>
-    <p>Detalhes do produto (podemos adicionar mais tarde).</p>
-    <button onclick="comprar('{{ produto }}')">Comprar</button>
+    <div class="produto-detalhe">
+        <h1>{{ produto }}</h1>
+        <p>Detalhes do produto (podemos adicionar mais tarde).</p>
+        <button onclick="comprar('{{ produto }}')">Comprar</button>
+    </div>
+    <p class="voltar-link"><a href="/">Voltar para a loja</a></p>
 
     <script>
         function comprar(produto) {
@@ -27,6 +31,5 @@
             });
         }
     </script>
-    <p><a href="/">Voltar para a loja</a></p>
 </body>
 </html>
