@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ produto }} - Loja de Roupas (Simulada)</title>
+</head>
+<body>
+    <h1>{{ produto }}</h1>
+    <p>Detalhes do produto (podemos adicionar mais tarde).</p>
+    <button onclick="comprar('{{ produto }}')">Comprar</button>
+
+    <script>
+        function comprar(produto) {
+            fetch('/comprar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ produto: produto }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(`Você comprou 1 unidade de ${produto}!`);
+                } else {
+                    alert('Erro ao processar a compra.');
+                }
+            });
+        }
+    </script>
+    <p><a href="/">Voltar para a loja</a></p>
+</body>
+</html>
