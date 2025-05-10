@@ -1,11 +1,21 @@
 body {
-    font-family: sans-serif;
-    margin: 20px;
-    background-color: #f4f4f4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte mais moderna */
+    margin: 0; /* Remover margens padrão do body */
+    background-color: #f8f9fa; /* Cor de fundo mais clara */
+    color: #333;
+}
+
+.container {
+    max-width: 1200px; /* Largura máxima para centralizar o conteúdo */
+    margin: 20px auto; /* Centralizar o conteúdo com margens */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
 h1 {
-    color: #333;
+    color: #007bff; /* Cor primária */
     text-align: center;
     margin-bottom: 30px;
 }
@@ -14,7 +24,7 @@ ul {
     list-style: none;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Colunas responsivas com largura mínima */
     gap: 20px;
 }
 
@@ -23,36 +33,53 @@ ul li {
     border: 1px solid #ddd;
     padding: 15px;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out; /* Efeito de hover suave */
+}
+
+ul li:hover {
+    transform: scale(1.05);
 }
 
 ul li a {
     text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
+    color: #333;
+    display: block; /* Fazer o link ocupar todo o item da lista */
+}
+
+ul li img {
+    max-width: 100%; /* Imagens responsivas */
+    height: auto; /* Manter a proporção da imagem */
+    margin-bottom: 10px;
+    border-radius: 4px;
 }
 
 .produto-detalhe {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 5px;
-    margin-bottom: 20px;
+    composes: container; /* Usar os estilos do container */
     text-align: center;
 }
 
 .produto-detalhe h1 {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.produto-detalhe img {
+    max-width: 300px;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .produto-detalhe button {
     background-color: #28a745;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 12px 24px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.2s ease-in-out;
 }
 
 .produto-detalhe button:hover {
@@ -62,7 +89,7 @@ ul li a {
 .voltar-link {
     display: block;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 30px;
     color: #007bff;
     text-decoration: none;
 }

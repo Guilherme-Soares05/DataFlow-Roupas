@@ -5,13 +5,14 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="produto-detalhe">
+    <div class="container produto-detalhe">
         <h1>{{ produto }}</h1>
+        <img src="{{ url_for('static', filename='images/' + produto.replace('-', '_').lower() + '.png') }}" alt="{{ produto }}">
+        <p>Estoque disponível: <span id="estoque">10</span> unidades (simulado)</p>
         <p>Detalhes do produto (podemos adicionar mais tarde).</p>
         <button onclick="comprar('{{ produto }}')">Comprar</button>
+        <p class="voltar-link"><a href="/">Voltar para a loja</a></p>
     </div>
-    <p class="voltar-link"><a href="/">Voltar para a loja</a></p>
-
     <script>
         function comprar(produto) {
             fetch('/comprar', {
