@@ -3,7 +3,6 @@ import psycopg2
 from datetime import datetime
 
 app = Flask(__name__)
-DATABASE = './database/vendas.db'
 
 DATABASE_URL = "postgresql://dataflow:password@db:5432/dataflow_db"
 
@@ -14,9 +13,8 @@ def get_db_connection():
 def insert_venda(produto):
     conn = get_db_connection()
     cur = conn.cursor()
-    data_venda = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    cur.execute("INSERT INTO vendas (produto, quantidade, preco, data_venda) VALUES (%s, %s, %s, %s)",
-                  (produto, 1, 0.00, data_venda)) # Preço 0 por simplicidade agora
+    cur.execute("INSERT INTO vendas (produto, quantidade, preco, data_venda) VALUES (%s, %s, %s, NOW())",
+                (produto, 1, 0.00,))
     conn.commit()
     cur.close()
     conn.close()
@@ -35,7 +33,7 @@ def comprar_produto(nome_produto):
     conn = get_db_connection()
     cur = conn.cursor()
     try:
-        data = request.get_json()  # Obtém o JSON do corpo da requisição
+        data = request.get_json()
         quantidade = data.get('quantidade')
         preco = data.get('preco')
 
@@ -47,7 +45,7 @@ def comprar_produto(nome_produto):
         cur.close()
         conn.close()
         return jsonify({'message': f'{quantidade} unidades de {nome_produto} compradas com sucesso!'}), 201
-    except Exception as e:
+    except psycopg2.Error as e:
         conn.rollback()
         cur.close()
         conn.close()
@@ -73,4 +71,4 @@ def listar_vendas():
     return jsonify(vendas_list)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=8000)

@@ -10,6 +10,37 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data/
+    networks:
+      - dataflow-net
+
+  app:
+    build: .
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://dataflow:password@db:5432/dataflow_db
+      - FLASK_APP=app.py
+    ports:
+      - "8000:8000"
+    networks:
+      - dataflow-net
+    volumes:
+      - .:/app
+
+  init-db:
+    build: .
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://dataflow:password@db:5432/dataflow_db
+    volumes:
+      - ./database:/app/database  # Monta o diretório database
+    entrypoint: ["python", "/app/database/init_db.py"]
+    networks:
+      - dataflow-net
+
+networks:
+  dataflow-net:
 
 volumes:
   db_data:

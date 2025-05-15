@@ -7,7 +7,7 @@ def init_db():
     cur = conn.cursor()
 
     # Execute o schema.sql para criar a tabela
-    with open('schema.sql', 'r') as f:
+    with open('database/schema.sql', 'r') as f:
         cur.execute(f.read())
 
     # Inserir alguns dados de exemplo
